@@ -9,6 +9,9 @@ gem 'sqlite3'
 # Use MySQL for production database
 gem 'mysql2'
 
+#Deploy using Capistrano
+gem 'rvm-capistrano', group: :development
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
