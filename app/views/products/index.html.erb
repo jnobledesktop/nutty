@@ -8,6 +8,7 @@
       <%= link_to product do %>
         <%= image_tag product.image.url(:medium), alt: product.title %>
         <p class="product"><%= product.title %></p>
+        <p>Rating: <%= @product.rating %></p>
       <% end %>
       <p class="gray-text"><%= number_to_currency product.price %></p>
     </div>
