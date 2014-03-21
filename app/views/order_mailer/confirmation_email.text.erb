@@ -1,0 +1,18 @@
+Thanks for your order at ThatNuttyGuy.com!
+------------------------------------------
+
+Your Order # is <%= @order.id %>.  Please refer to this order number in future communications with us to ensure prompt service.
+
+Customer: <%= @order.email %>
+
+<% @order.line_items.each do |line_item| %>
+Item:       <%= line_item.title %> Item #<%= line_item.sku %>
+Quantity:   <%= line_item.quantity %>
+Item Price: <%= number_to_currency line_item.price %>
+Total:      <%= number_to_currency line_item.subtotal %>
+<% end %>
+
+Subtotal: <%= number_to_currency @order.subtotal %>
+Shipping: FREE
+Estimated Tax: $0.00
+Total: <%= number_to_currency @order.total %>

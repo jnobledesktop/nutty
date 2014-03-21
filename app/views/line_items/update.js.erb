@@ -1,0 +1,4 @@
+$('td[data-line-item-id=<%= @line_item.id %>]').html('<%= number_to_currency @line_item.subtotal %>');
+$('td#subtotal').html('<%= number_to_currency @cart.subtotal %>');
+$('td#total').html('<%= number_to_currency @cart.total %>');
+$('td#bitcoin-total').html('<%= @cart.bitcoin_total %>');

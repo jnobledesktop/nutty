@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title><%= @title + ' | ' if @title %>That Nutty Guy</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand ir" href="/">That Nutty Guy</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Shop</a></li>
+        <li><a href="#">Gift Finder</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="right-nav">
+        <a href="#">Account</a>
+        <% if customer_signed_in? %>
+          <%= link_to 'Sign Out', destroy_customer_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Sign In', new_customer_session_path %>
+        <% end %>
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <a id="cart" href="/cart">
+              <span class="glyphicon glyphicon-shopping-cart"></span>Cart
+              <% if @cart %>
+                <span class="badge"><%= @cart.line_items.count %></span>
+              <% end %>
+            </a>
+            <hr id="cart-hr" class="visible-xs">
+            <input type="search" placeholder="Search" class="form-control" id="search">
+          </div>
+        </form>
+      </div><!--/.right-nav -->
+    </div><!--/.navbar-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<%= render 'shared/get_nutty' if @get_nutty %>
+
+<div class="container">
+  <div id="main" role="main">
+
+    <% if flash[:alert] %>
+      <div id="flash" class="alert"><%= flash[:alert] %></div>
+    <% elsif flash[:notice] %>
+      <div id="flash" class="notice"><%= flash[:notice] %></div>
+    <% end %>
+
+    <%= yield %>
+
+  </div> <!-- /#main --> 
+</div> <!-- /.container --> 
+<footer>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-3">
+        <h6>Customer Service</h6>
+        <ul>
+          <li><a href="#">Shipping & Delivery</a></li>
+          <li><a href="#">Order Status</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-3">
+        <h6>Policies</h6>
+        <ul>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Private Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-4 col-sm-offset-2">
+        <ul id="social-media">
+          <a href="#"><span class="social-media facebook ir">Facebook</span></a>
+          <a href="#"><span class="social-media twitter ir">Twitter</span></a>
+          <a href="#"><span class="social-media instagram ir">Instagram</span></a>
+          <a href="#"><span class="social-media google ir">Google+</span></a>
+          <p id="copyright">© That Nutty Guy</p>
+        </ul>
+      </div>
+      
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</footer>  
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+  <div class="row" id="cart-page">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+        <div class="panel-heading">Your Order is Complete</div>
+        <div class="panel-body">
+          <p>Thank you for shopping with us!  Our staff will be in touch soon to finalize your purchase.</p>
+        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="hidden-xs"></th>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th class="hidden-xs">Item Price</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.line_items.each do |line_item| %>
+              <tr>
+                <td id="thumbnail-div" class="hidden-xs">
+                  <%= link_to line_item.product do %>
+                    <%= image_tag line_item.image.url(:medium) %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to line_item.product do %>
+                    <p><%= line_item.title %></p>
+                  <% end %>
+                  <p class="gray-text">Item #<%= line_item.sku %></p>
+                </td>
+                <td>
+                  <%= line_item.quantity %>
+                </td>
+                <td class="hidden-xs"><%= number_to_currency line_item.price %></td>
+                <td class="total-price"><%= number_to_currency line_item.subtotal %></td>
+              </tr>
+            <% end %>
+            <tr>
+              <td>&nbsp;</td>
+              <td>Subtotal</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><%= number_to_currency @cart.subtotal %></td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>Shipping</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>FREE</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>Estimated Tax</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>$0.00</td>
+            </tr>
+            <tr class="total-price">
+              <td>&nbsp;</td>
+              <td>Total</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td><%= number_to_currency @cart.total %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div> <!-- End left column -->
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Sold To</div>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <p class="product">
+                  <%= @order.email %>
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% if @related_products.any? %>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Customers Also Bought</div>
+          <table class="table">
+            <tbody>
+              <% @related_products.each do |rp| %>
+              <tr>
+                <td>
+                  <p>
+                    <%= link_to rp do %>
+                      <%= image_tag rp.image.url(:medium) %>
+                    <% end %>
+                  </p>
+                  <p class="product">
+                    <%= link_to rp do %>
+                      <%= rp.title %></p>
+                    <% end %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div>
+    </div> <!-- End right column -->
+    <% end %>
+  </div> <!-- /.row --> 

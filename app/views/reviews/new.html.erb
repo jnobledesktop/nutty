@@ -1,0 +1,21 @@
+<h2>Add a Review</h2>
+<%= form_for @review do |f| %>
+  <p>
+    <%= f.label :rating %>
+    <%= f.select :rating, [1,2,3,4,5] %>
+  </p>
+  <p>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </p>
+  <br>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body, rows: 5, cols: 60 %>
+  </p>
+  <br>
+  <p>
+    <%= f.hidden_field :product_id, value: @product.id %>
+    <%= f.submit %>
+  </p>
+<% end %>

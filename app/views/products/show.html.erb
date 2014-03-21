@@ -1,0 +1,51 @@
+  <div class="row">
+    <div class="col-xs-12 hidden-sm hidden-xs">
+      <ol class="breadcrumb"> 
+        <li><a href="/">Featured</a></li>
+        <li class="active"><%= @product.title %></li>
+      </ol>
+      <hr>
+    </div> 
+  </div> <!-- /.row #breadcrumbs -->
+  <div class="row" id="product-page">
+    <div class="col-md-5 col-sm-6 col-xs-12">
+      <div class="visible-xs"> <!-- mobile only -->
+            <h1><%= @product.title %></h1>
+            <p class="gray-text">Item #<%= @product.sku %></p>
+            <hr>
+      </div> 
+      <%= image_tag @product.image.url(:medium), alt: @product.title, class: "product" %>
+    </div> <!-- /column1 -->
+    <div class="col-md-7 col-sm-6 col-xs-12">
+        <h1 class="hidden-xs"><%= @product.title %></h1>
+        <p class="gray-text hidden-xs">Item #<%= @product.sku %></p>
+        <hr class="visible-xs">
+        <p class="price"><%= number_to_currency @product.price %></p>
+        <p class="star-rating-large <%= @product.rating.to_words %> ir">Star Rating</p>
+        <%= form_tag '/line_items', method: :post do %>
+          <%= hidden_field_tag :product_id, @product.id %>
+          <%= number_field_tag :quantity, 1, min: 1, max: 100 %>
+          <%= button_tag id: 'add-cart', class: 'btn btn-red btn-md' do %>
+          <span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart
+          <% end %>
+        <% end %>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+          <li><a href="#specs" data-toggle="tab">Specs</a></li>
+          <li><a href="#reviews" data-toggle="tab">Reviews</a></li>
+        </ul> <!-- / .nav-tabs -->
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="details">
+          <%= raw @redcarpet.render @product.description unless @product.description.nil? %>
+        </div> <!-- / details -->
+        <div class="tab-pane fade" id="specs">
+          <%= raw @redcarpet.render @product.specs unless @product.specs.nil? %>
+        </div> <!-- / #specs -->
+        <div class="tab-pane fade" id="reviews">
+          <%= render 'reviews' %>
+      </div> <!-- / tab panes -->
+      </div> <!-- / tab content -->
+    </div> <!-- /column2 --> 
+  </div> <!-- /.row --> 

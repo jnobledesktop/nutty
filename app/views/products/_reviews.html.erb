@@ -1,0 +1,30 @@
+          <article>
+            <div class="row">
+              <div class="col-xs-12">
+                <h3>Overall Rating:</h3>
+                <h5 class="star-rating-small <%= @product.rating.to_words %> ir">Overall Rating</h5>
+                <%= button_to new_review_path, method: :get, id: "write-review", class: 'btn btn-red btn-xs' do %>
+                  <%= hidden_field_tag :product_id, @product.id %>
+                  <span class="glyphicon glyphicon-pencil"></span> Write a Review
+                <% end %>
+              </div>
+            </div> <!-- /.row #reviews -->
+          </article>
+          <% if @product.reviews.any? %>
+            <% @product.reviews.each do |review| %>
+              <hr>
+              <article>
+                <div class="row">
+                  <div class="col-sm-4 col-xs-12">
+                    <h5 class="star-rating-small <%= review.rating.to_words %> ir">Star Rating</h5>
+                    <h4>Anonymous</h4>
+                  <p class="gray-text"><%= review.created_at.strftime('%B %-d, %Y') %></p>
+                  </div>
+                  <div class="col-sm-8 col-xs-12">
+                    <h3><%= review.title %></h3>
+                    <p><%= review.body %></p>
+                  </div>
+                </div> <!-- /.row #reviews -->
+              </article> <!-- /review -->
+            <% end %>
+          <% end %>

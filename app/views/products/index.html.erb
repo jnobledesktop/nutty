@@ -1,0 +1,15 @@
+<div id="featured">
+  <h2 class="category">Featured Gifts</h2>
+  <hr>
+</div>
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-3 col-sm-4 col-xs-12">
+      <%= link_to product do %>
+        <%= image_tag product.image.url(:medium), alt: product.title %>
+        <p class="product"><%= product.title %></p>
+      <% end %>
+      <p class="gray-text"><%= number_to_currency product.price %></p>
+    </div>
+  <% end %>
+</div> <!--/.row -->
